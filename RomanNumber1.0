@@ -1,0 +1,218 @@
+function toRoman(num) {
+    const romanNumData = ['M', 'D', 'C', 'L', 'X', 'V', 'I']
+    let digitOfNine = 0
+    let digitOfFive = 1
+    let digitOfOne = 2
+
+    let romannum = ''
+    let firsttimes = 'true'
+
+    //把數字當成字串處理 從頭開始處理邏輯 ex 千百十個
+    if (num > 0 && num < 4000) {
+        let numString = String(num)
+        let numArray = numString.split('')
+
+        if (numArray.length === 4) {
+
+            numArray.forEach((el, index, arr) => {
+                arr[index] = Number(el)
+                //千位數
+                if (firsttimes === 'true') {
+                    for (let i = 0; i < el; i++) {
+                        romannum += romanNumData[index]
+                    }
+                    firsttimes = 'flase'
+                }
+                //百十個位數
+                else {
+                    if (numArray[index] === 9) {
+                        romannum += romanNumData[digitOfNine + 2]
+                        romannum += romanNumData[digitOfNine]
+                        digitOfNine += 2
+                        digitOfFive += 2
+                        digitOfOne += 2
+                    } else if (numArray[index] === 5) {
+                        romannum += romanNumData[digitOfFive]
+                        digitOfNine += 2
+                        digitOfFive += 2
+                        digitOfOne += 2
+                    } else if (numArray[index] === 4) {
+                        romannum += romanNumData[digitOfFive + 1]
+                        romannum += romanNumData[digitOfFive]
+                        digitOfNine += 2
+                        digitOfFive += 2
+                        digitOfOne += 2
+                    } else {
+
+                        if (Math.floor(numArray[index] / 5) > 0) {
+                            romannum += romanNumData[digitOfFive]
+                            let x = numArray[index] - 5
+                            for (let i = 0; i < x; i++) {
+                                romannum += romanNumData[digitOfOne]
+                            }
+                            digitOfNine += 2
+                            digitOfFive += 2
+                            digitOfOne += 2
+                        } else {
+                            for (let i = 0; i < numArray[index]; i++) {
+                                romannum += romanNumData[digitOfOne]
+                            }
+                            digitOfNine += 2
+                            digitOfFive += 2
+                            digitOfOne += 2
+                        }
+                    }
+                }
+            })
+
+
+        } else if (numArray.length === 3) {
+
+            numArray.forEach((el, index, arr) => {
+                arr[index] = Number(el)
+                if (numArray[index] === 9) {
+                    romannum += romanNumData[digitOfNine + 2]
+                    romannum += romanNumData[digitOfNine]
+                    digitOfNine += 2
+                    digitOfFive += 2
+                    digitOfOne += 2
+                } else if (numArray[index] === 5) {
+                    romannum += romanNumData[digitOfFive]
+                    digitOfNine += 2
+                    digitOfFive += 2
+                    digitOfOne += 2
+                } else if (numArray[index] === 4) {
+                    romannum += romanNumData[digitOfFive + 1]
+                    romannum += romanNumData[digitOfFive]
+                    digitOfNine += 2
+                    digitOfFive += 2
+                    digitOfOne += 2
+                } else {
+
+                    if (Math.floor(numArray[index] / 5) > 0) {
+                        romannum += romanNumData[digitOfFive]
+
+                        let x = numArray[index] - 5
+
+                        for (let i = 0; i < x; i++) {
+                            romannum += romanNumData[digitOfOne]
+                        }
+                        digitOfNine += 2
+                        digitOfFive += 2
+                        digitOfOne += 2
+                    } else {
+                        for (let i = 0; i < numArray[index]; i++) {
+                            romannum += romanNumData[digitOfOne]
+                        }
+                        digitOfNine += 2
+                        digitOfFive += 2
+                        digitOfOne += 2
+                    }
+                }
+            })
+            //(錯)
+        } else if ((numArray.length === 2)) {
+            numArray.forEach((el, index, arr) => {
+                arr[index] = Number(el)
+                if (numArray[index] === 9) {
+                    romannum += romanNumData[digitOfNine + 2]
+                    romannum += romanNumData[digitOfNine]
+                    digitOfNine += 2
+                    digitOfFive += 2
+                    digitOfOne += 2
+                } else if (numArray[index] === 5) {
+                    romannum += romanNumData[digitOfFive]
+                    digitOfNine += 2
+                    digitOfFive += 2
+                    digitOfOne += 2
+                } else if (numArray[index] === 4) {
+                    romannum += romanNumData[digitOfFive + 1]
+                    romannum += romanNumData[digitOfFive]
+                    digitOfNine += 2
+                    digitOfFive += 2
+                    digitOfOne += 2
+                } else {
+
+                    if (Math.floor(numArray[index] / 5) > 0) {
+                        romannum += romanNumData[digitOfFive]
+
+                        let x = numArray[index] - 5
+
+                        for (let i = 0; i < x; i++) {
+                            romannum += romanNumData[digitOfOne]
+                        }
+                        digitOfNine += 2
+                        digitOfFive += 2
+                        digitOfOne += 2
+                    } else {
+                        for (let i = 0; i < numArray[index]; i++) {
+                            romannum += romanNumData[digitOfOne]
+                        }
+                        digitOfNine += 2
+                        digitOfFive += 2
+                        digitOfOne += 2
+                    }
+                }
+            })
+            //(錯)
+        } else {
+            numArray.forEach((el, index, arr) => {
+                arr[index] = Number(el)
+                if (numArray[index] === 9) {
+                    romannum += romanNumData[digitOfNine + 2]
+                    romannum += romanNumData[digitOfNine]
+                    digitOfNine += 2
+                    digitOfFive += 2
+                    digitOfOne += 2
+                } else if (numArray[index] === 5) {
+                    romannum += romanNumData[digitOfFive]
+                    digitOfNine += 2
+                    digitOfFive += 2
+                    digitOfOne += 2
+                } else if (numArray[index] === 4) {
+                    romannum += romanNumData[digitOfFive + 1]
+                    romannum += romanNumData[digitOfFive]
+                    digitOfNine += 2
+                    digitOfFive += 2
+                    digitOfOne += 2
+                } else {
+
+                    if (Math.floor(numArray[index] / 5) > 0) {
+                        romannum += romanNumData[digitOfFive]
+
+                        let x = numArray[index] - 5
+
+                        for (let i = 0; i < x; i++) {
+                            romannum += romanNumData[digitOfOne]
+                        }
+                        digitOfNine += 2
+                        digitOfFive += 2
+                        digitOfOne += 2
+                    } else {
+                        for (let i = 0; i < numArray[index]; i++) {
+                            romannum += romanNumData[digitOfOne]
+                        }
+                        digitOfNine += 2
+                        digitOfFive += 2
+                        digitOfOne += 2
+                    }
+                }
+            })
+        }
+
+
+        console.log(romannum)
+    }
+    else {
+        console.log('plz type number 0~4000')
+    }
+
+
+
+
+
+
+
+}
+toRoman(175)
+// console.log(toRoman(2000))
