@@ -1,0 +1,214 @@
+function toRoman(num) {
+    const romanNumarray = ['M', 'D', 'C', 'L', 'X', 'V', 'I']
+    let nineIndex = 0
+    let fiveIndex = 1
+    let oneIndex = 2
+    let romannum = ''
+    let firstTimes = 'true'
+
+    //把數字當成字串處理 從頭開始處理邏輯 ex 千百十個
+    //numArry.length = 使用者輸入的數字共有幾個位數
+    if (num > 0 && num < 4000) {
+        let numString = String(num)
+        let numArray = numString.split('')
+
+        if (numArray.length === 4) {
+            numArray.forEach((el, index, arr) => {
+                arr[index] = Number(el)
+                if (firstTimes === 'true') {
+                    for (let i = 0; i < el; i++) {
+                        romannum += romanNumarray[index]
+                    }
+                    firstTimes = 'flase'
+                }
+                else {
+                    if (numArray[index] === 9) {
+                        romannum += romanNumarray[nineIndex + 2]
+                        romannum += romanNumarray[nineIndex]
+                        nineIndex += 2
+                        fiveIndex += 2
+                        oneIndex += 2
+                    } 
+                    else if (numArray[index] === 5) {
+                        romannum += romanNumarray[fiveIndex]
+                        nineIndex += 2
+                        fiveIndex += 2
+                        oneIndex += 2
+                    }
+                    else if (numArray[index] === 4) {
+                        romannum += romanNumarray[fiveIndex + 1]
+                        romannum += romanNumarray[fiveIndex]
+                        nineIndex += 2
+                        fiveIndex += 2
+                        oneIndex += 2
+                    } 
+                    else {
+                        if (Math.floor(numArray[index] / 5) > 0) {
+                            romannum += romanNumarray[fiveIndex]
+                            let x = numArray[index] - 5
+                            for (let i = 0; i < x; i++) {
+                                romannum += romanNumarray[oneIndex]
+                            }
+                            nineIndex += 2
+                            fiveIndex += 2
+                            oneIndex += 2
+                        } 
+                        else {
+                            for (let i = 0; i < numArray[index]; i++) {
+                                romannum += romanNumarray[oneIndex]
+                            }
+                            nineIndex += 2
+                            fiveIndex += 2
+                            oneIndex += 2
+                        }
+                    }
+                }
+            })
+        } else if (numArray.length === 3) {
+            numArray.forEach((el, index, arr) => {
+                arr[index] = Number(el)
+                if (numArray[index] === 9) {
+                    romannum += romanNumarray[nineIndex + 2]
+                    romannum += romanNumarray[nineIndex]
+                    nineIndex += 2
+                    fiveIndex += 2
+                    oneIndex += 2
+                } 
+                else if (numArray[index] === 5) {
+                    romannum += romanNumarray[fiveIndex]
+                    nineIndex += 2
+                    fiveIndex += 2
+                    oneIndex += 2
+                } 
+                else if (numArray[index] === 4) {
+                    romannum += romanNumarray[fiveIndex + 1]
+                    romannum += romanNumarray[fiveIndex]
+                    nineIndex += 2
+                    fiveIndex += 2
+                    oneIndex += 2
+                } 
+                else {
+                    if (Math.floor(numArray[index] / 5) > 0) {
+                        romannum += romanNumarray[fiveIndex]
+                        let x = numArray[index] - 5
+                        for (let i = 0; i < x; i++) {
+                            romannum += romanNumarray[oneIndex]
+                        }
+                        nineIndex += 2
+                        fiveIndex += 2
+                        oneIndex += 2
+                    } 
+                    else {
+                        for (let i = 0; i < numArray[index]; i++) {
+                            romannum += romanNumarray[oneIndex]
+                        }
+                        nineIndex += 2
+                        fiveIndex += 2
+                        oneIndex += 2
+                    }
+                }
+            })
+        } else if (numArray.length === 2) {
+            //切割陣列數字是十位數時需要用到的羅馬數字
+            let tensDigit=romanNumarray.splice(2,5)
+            numArray.forEach((el, index, arr) => {
+                arr[index] = Number(el)
+                if (numArray[index] === 9) {
+                    if(index===0){
+                        romannum += tensDigit[2]
+                        romannum += tensDigit[0]
+                    }
+                    else{
+                        romannum += tensDigit[4]
+                        romannum += tensDigit[2]
+                    }
+                } 
+                else if (numArray[index] === 5) {
+                    if(index===0){
+                        romannum += tensDigit[1]
+                    }
+                    else{
+                        romannum += tensDigit[3]
+                    }
+                }
+                else if (numArray[index] === 4) {
+                    if(index===0){
+                        romannum += tensDigit[2]
+                        romannum += tensDigit[1]
+                    }else{
+                        romannum += tensDigit[4]
+                        romannum += tensDigit[3]
+                    }
+                }
+                else {
+                    if (Math.floor(numArray[index] / 5) > 0){ 
+                        if(index===0){
+                            romannum += tensDigit[1]
+                        }
+                        else{
+                            romannum += tensDigit[3]
+                        }
+                        let x = numArray[index] - 5
+                        for (let i = 0; i < x; i++) {
+                            if(index===0){
+                                romannum += tensDigit[2]
+                            }
+                            else{
+                                romannum += tensDigit[4]
+                            }
+                        }
+                    } 
+                    else {
+                        if(index===0){
+                           for (let i = 0; i < numArray[index]; i++) {
+                            romannum += tensDigit[2]
+                            }
+                        }
+                        else{
+                            for (let i = 0; i < numArray[index]; i++){
+                                romannum += tensDigit[4]
+                            }
+                        }
+                    }
+                }
+            })
+        } 
+        else {
+            numArray.forEach((el, index, arr) => {
+                //切割陣列數字是一位數時需要用到的羅馬數字
+                let digit=romanNumarray.splice(4,3)
+                arr[index] = Number(el)
+                if (numArray[index] === 9) {
+                    romannum += digit[2]
+                    romannum += digit[0]
+                }
+                else if (numArray[index] === 5) {
+                    romannum += digit[1]
+                }
+                else if (numArray[index] === 4) {
+                    romannum += digit[2]
+                    romannum += digit[1]  
+                }
+                else{
+                    if (Math.floor(numArray[index] / 5) > 0) {
+                        romannum += digit[1]
+                        let x = numArray[index] - 5
+                        for (let i = 0; i < x; i++) {
+                            romannum += digit[2]
+                        }
+                    } 
+                    else {
+                        for (let i = 0; i < numArray[index]; i++) {
+                            romannum += digit[2]
+                        }
+                    }
+                }
+            })
+        }
+        console.log(romannum)
+    }
+    else {
+        console.log('plz type number 0~4000')
+    }
+}
+toRoman(99)
